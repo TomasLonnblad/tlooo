@@ -15,7 +15,7 @@ export default function Model({activeMenu}) {
     const dimension = useDimension();
     const mouse = useMouse();
     const opacity = useMotionValue(0);
-    const textures = projects.map(project => useTexture(project.src))
+    const textures = useTexture(projects.map(project => project.src));
     const { width, height } = textures[0].image;
     const lerp = (x, y, a) => x * (1 - a) + y * a
 
@@ -37,7 +37,7 @@ export default function Model({activeMenu}) {
         else {
             animate(opacity, 0, {duration: 0.2, onUpdate: latest => plane.current.material.uniforms.uAlpha.value = latest})
         }
-    }, [activeMenu])
+    }, [activeMenu, opacity, textures])
 
     const uniforms = useRef({
         uDelta: { value: { x: 0, y: 0 } },
